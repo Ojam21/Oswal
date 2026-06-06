@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeHub - Tienda Premium de Productos Exclusivos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-gem"></i>
+                <span>LuxeHub</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#about">Acerca de</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Bienvenido a LuxeHub</h1>
+            <p>Descubre productos exclusivos y de alta calidad</p>
+            <button class="cta-btn" onclick="document.getElementById('productos').scrollIntoView({behavior: 'smooth'})">
+                Explorar Tienda
+            </button>
+        </div>
+        <div class="hero-background">
+            <div class="gradient-orb"></div>
+            <div class="gradient-orb" style="--delay: 2s;"></div>
+        </div>
+    </section>
+
+    <!-- Productos Section -->
+    <section id="productos" class="productos">
+        <div class="container">
+            <h2>Nuestros Productos Destacados</h2>
+            <div class="filtros">
+                <button class="filtro-btn active" onclick="filtrarProductos('todos')">Todos</button>
+                <button class="filtro-btn" onclick="filtrarProductos('electronica')">Electrónica</button>
+                <button class="filtro-btn" onclick="filtrarProductos('accesorios')">Accesorios</button>
+                <button class="filtro-btn" onclick="filtrarProductos('ropa')">Ropa</button>
+            </div>
+            <div class="productos-grid" id="productosGrid">
+                <!-- Los productos se cargarán aquí -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>¿Por qué elegir LuxeHub?</h2>
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Productos 100% auténticos y de alta calidad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Envío rápido y seguro a todo el país</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Garantía de satisfacción o devolución del dinero</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Atención al cliente 24/7</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Promociones exclusivas para miembros</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>10K+</h3>
+                            <p>Clientes Satisfechos</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>500+</h3>
+                            <p>Productos</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>99%</h3>
+                            <p>Satisfacción</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>24h</h3>
+                            <p>Soporte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Suscríbete a Nuestro Newsletter</h2>
+            <p>Recibe ofertas exclusivas y descuentos especiales</p>
+            <form class="newsletter-form" onsubmit="suscribirse(event)">
+                <input type="email" placeholder="Tu correo electrónico" required>
+                <button type="submit">Suscribirse</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contacto">
+        <div class="container">
+            <h2>Contáctanos</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Teléfono</h3>
+                    <p>+34 123 456 789</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>info@luxehub.com</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Ubicación</h3>
+                    <p>Madrid, España</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Horario</h3>
+                    <p>24/7 - Siempre Abierto</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Carrito de Compras</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-total">
+                <h3>Total: $<span id="totalPrice">0.00</span></h3>
+                <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>LuxeHub</h4>
+                    <p>Tu tienda premium de confianza</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#about">Acerca de</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LuxeHub. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
