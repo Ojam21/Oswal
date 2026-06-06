@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster - Tu Gestor de Tareas Inteligente</title>
+    <link rel="stylesheet" href="todo-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tasks"></i>
+                    <h1>TaskMaster</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-btn" onclick="toggleTheme()" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="clear-btn" onclick="clearAllCompleted()" title="Limpiar completadas">
+                        <i class="fas fa-broom"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="stat-label">Total:</span>
+                <span class="stat-value" id="totalTasks">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Completadas:</span>
+                <span class="stat-value completed" id="completedTasks">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Pendientes:</span>
+                <span class="stat-value pending" id="pendingTasks">0</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="taskInput" 
+                    class="task-input" 
+                    placeholder="¿Qué necesitas hacer hoy? 🚀"
+                    onkeypress="handleKeyPress(event)"
+                >
+                <button class="add-btn" onclick="addTask()">
+                    <i class="fas fa-plus"></i>
+                    <span>Agregar</span>
+                </button>
+            </div>
+            <div class="priority-section">
+                <label>Prioridad:</label>
+                <div class="priority-buttons">
+                    <button class="priority-btn active" data-priority="normal" onclick="setPriority('normal')">
+                        <i class="fas fa-circle"></i> Normal
+                    </button>
+                    <button class="priority-btn" data-priority="high" onclick="setPriority('high')">
+                        <i class="fas fa-exclamation-circle"></i> Alta
+                    </button>
+                    <button class="priority-btn" data-priority="urgent" onclick="setPriority('urgent')">
+                        <i class="fas fa-fire"></i> Urgente
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterTasks('all')">
+                <i class="fas fa-list"></i> Todas
+            </button>
+            <button class="filter-tab" onclick="filterTasks('active')">
+                <i class="fas fa-circle-notch"></i> Activas
+            </button>
+            <button class="filter-tab" onclick="filterTasks('completed')">
+                <i class="fas fa-check-circle"></i> Completadas
+            </button>
+            <button class="filter-tab" onclick="filterTasks('urgent')">
+                <i class="fas fa-fire"></i> Urgentes
+            </button>
+        </div>
+
+        <!-- Tasks List -->
+        <div class="tasks-container">
+            <ul class="tasks-list" id="tasksList">
+                <!-- Tasks will be added here -->
+            </ul>
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-inbox"></i>
+                <h3>¡No hay tareas!</h3>
+                <p>Agrega una nueva tarea para comenzar 🌟</p>
+            </div>
+        </div>
+
+        <!-- Quick Add Suggestions -->
+        <div class="suggestions-section">
+            <h3>Sugerencias rápidas:</h3>
+            <div class="suggestions-grid">
+                <button class="suggestion-btn" onclick="quickAddTask('Revisar correos')">
+                    <i class="fas fa-envelope"></i> Correos
+                </button>
+                <button class="suggestion-btn" onclick="quickAddTask('Llamar cliente')">
+                    <i class="fas fa-phone"></i> Llamada
+                </button>
+                <button class="suggestion-btn" onclick="quickAddTask('Reunion a las 2pm')">
+                    <i class="fas fa-calendar"></i> Reunión
+                </button>
+                <button class="suggestion-btn" onclick="quickAddTask('Comprar groceries')">
+                    <i class="fas fa-shopping-cart"></i> Compras
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>¿Eliminar tarea?</h3>
+            <p>Esta acción no se puede deshacer</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="cancelDelete()">Cancelar</button>
+                <button class="modal-btn delete" onclick="confirmDelete()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3>Editar Tarea</h3>
+            <input type="text" id="editInput" class="task-input" placeholder="Editar tarea">
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="cancelEdit()">Cancelar</button>
+                <button class="modal-btn save" onclick="saveEdit()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="todo-script.js"></script>
+</body>
+</html>
